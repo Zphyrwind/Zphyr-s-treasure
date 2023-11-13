@@ -1,1 +1,96 @@
+<?php
+$servername='localhost';
+$username='znier';
+$password='123456';
+$dbname='homework';
+$ez=new mysqli($servername,$username,$password,$dbname);
+ if ($ez->connect_error){
+     die("乐色".$ez->connect_error);
+ }
+ echo "diao";
 
+
+
+
+
+
+ $sql='CREATE TABLE kingOG (
+  ename VARCHAR(30) NOT NULL,
+    nation VARCHAR(30) NOT NULL,
+    func VARCHAR(50),
+    reg_date TIMESTAMP
+)';
+if ($ez->query($sql) === TRUE) {
+    echo "新记录插入成功";
+} else {
+    echo "Error: " . $sql . "<br>" . $ez->error;
+}
+
+
+
+
+
+
+
+$sql = "INSERT INTO kingOG (ename, nation, func)
+VALUES ('ana', 'Australia', '1')";
+$sql = "INSERT INTO kingOG (ename, nation, func)
+VALUES ('Topson', 'Norway', '2')";
+$sql = "INSERT INTO kingOG (ename, nation, func)
+VALUES ('N0tail', 'denmark', '1，5');";
+$sql = "INSERT INTO kingOG (ename, nation, func)
+VALUES ('Ceb', 'France', '3');";
+$sql = "INSERT INTO kingOG (ename, nation, func)
+VALUES ('JerAx', 'denmark', '5');";
+
+
+
+
+
+
+
+
+if ($ez->multi_query($sql) === TRUE) {
+    echo "OG nb";
+} else {
+    echo "LGD sb" . $sql . "<br>" . $ez->error;
+}
+$sql="DELETE FROM kingOG 
+       WHERE ename='Ceb'";
+if ($ez->query($sql) === TRUE) {
+    echo "success";
+} else {
+    echo "草" . $sql . "<br>" . $ez->error;
+}
+
+
+
+
+
+
+$sql ="UPDATE kingOG
+SET ename= '7ckngMad',nation='denmark',func='4' 
+WHERE ename='N0tail'";
+
+
+if ($ez->query($sql) === TRUE) {
+    echo "GREAT";
+} else {
+    echo "fuck!!!" . $sql . "<br>" . $ez->error;
+}
+
+
+
+
+
+$sql ="SELECT * FROM kingOG WHERE ename='JerAx'";
+$res=mysqli_query($ez,$sql);
+while($row = mysqli_fetch_assoc($res)) {
+    echo "ename:" . $row["ename"].
+         " nation:   " . $row["nation"].
+         " func: " . $row["func"] .
+         "<br>";
+}
+$ez->close()
+
+?>
